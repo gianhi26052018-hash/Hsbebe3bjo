@@ -1,0 +1,338 @@
+Tue May  5 13:24:59 2026
+Alternative_Saves_Android_Port
+Ren'Py 7.6.3.23091805
+ 
+
+Bootstrap to the start of init.init. took 0.00s
+Bootstrap to the start of init.init. took 0.00s
+
+Manufacturer Xiaomi Model 23106RN0DA
+Android Version: 14
+Device Arch:  android-arm64_v8a
+
+Screen diagonal is 4.93408505323 inches.
+Version: Ren'Py 7.6.3.23091805
+Early init. took 0.16s
+Early init. took 0.16s
+Attempting to sync your saves to/from stock ANDROID_PUBLIC location...
+Android search paths: /storage/emulated/0/Android/data/com.estrada777.dirtytexts/files/../../../../Documents/RenPy_Saves/com.estrada777.dirtytexts/game /data/user/0/com.estrada777.dirtytexts/files/game
+Loader init. took 0.02s
+Loader init. took 0.02s
+Loading error handling. took 0.06s
+Loading error handling. took 0.06s
+Loading script. took 0.41s
+Loading script. took 0.41s
+Saving to /storage/emulated/0/Android/data/com.estrada777.dirtytexts/files/../../../../Documents/RenPy_Saves/com.estrada777.dirtytexts
+Loading save slot metadata. took 0.17s
+Loading save slot metadata. took 0.17s
+Loading persistent. took 0.00s
+Loading persistent. took 0.00s
+Set script version to: (8, 0, 3)
+Running init code. took 0.15s
+Running init code. took 0.15s
+Loading analysis data. took 0.08s
+Loading analysis data. took 0.08s
+Analyze and compile ATL. took 0.01s
+Analyze and compile ATL. took 0.01s
+Reloading save slot metadata. took 0.12s
+Reloading save slot metadata. took 0.12s
+Index archives took 0.00s
+Index archives took 0.00s
+Dump and make backups. took 0.00s
+Dump and make backups. took 0.00s
+Cleaning cache. took 0.00s
+Cleaning cache. took 0.00s
+Making clean stores. took 0.00s
+Making clean stores. took 0.00s
+Initial gc. took 0.10s
+Initial gc. took 0.10s
+DPI scale factor: 1.000000
+Creating interface object. took 0.00s
+Creating interface object. took 0.00s
+Cleaning stores took 0.00s
+Cleaning stores took 0.00s
+Init translation took 0.16s
+Init translation took 0.16s
+Build styles took 0.01s
+Build styles took 0.01s
+Load screen analysis took 0.07s
+Load screen analysis took 0.07s
+Analyze screens took 0.00s
+Analyze screens took 0.00s
+Save screen analysis took 0.00s
+Save screen analysis took 0.00s
+Prepare screens took 0.29s
+Prepare screens took 0.29s
+Save pyanalysis. took 0.00s
+Save pyanalysis. took 0.00s
+Save bytecode. took 0.00s
+Save bytecode. took 0.00s
+Running _start took 0.00s
+Running _start took 0.00s
+Interface start. took 0.32s
+Interface start. took 0.32s
+
+Initializing gles2 renderer:
+primary display bounds: (0, 0, 1438, 652)
+swap interval: 1 frames
+Fullscreen mode.
+Vendor: 'ARM'
+Renderer: 'Mali-G52 MC2'
+Version: 'OpenGL ES 3.2 v1.r32p1-01eac0.52688e0652bc37eab85ce86c674ab12f'
+Display Info: None
+Screen sizes: virtual=(1920, 1080) physical=(1532, 720) drawable=(1532, 720)
+Maximum texture size: 4096x4096
+controller: u'05000000660600008808000001000000' u'uinput-fpc' 1
+Total time until interface ready: 2.39108896255s.
+Hid presplash.
+controller: u'05000000660600008808000001000000' u'uinput-fpc' 1
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+Cleaning stores took 0.00s
+Cleaning stores took 0.00s
+Init translation took 0.00s
+Init translation took 0.00s
+Build styles took 0.01s
+Build styles took 0.01s
+Load screen analysis took 0.07s
+Load screen analysis took 0.07s
+Analyze screens took 0.00s
+Analyze screens took 0.00s
+Prepare screens took 0.00s
+Prepare screens took 0.00s
+Running _start took 0.01s
+Running _start took 0.01s
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+cor
+love
+cor
+love
+cor
+love
+cor
+love
+cor
+love
+cor
+love
+cor
+love
+cor
+love
+cor
+love
+cor
+love
+cor
+love
+cor
+love
+cor
+love
+cor
+love
+cor
+love
+cor
+love
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+slut
+cor
+love
+None
+love
+None
+love
+None
+love
+None
+love
+None
+love
+None
+love
+None
+love
+None
+love
+None
+love
+None
+love
+None
+love
+None
+love
+None
+love
+None
+love
+None
+love
+None
+love
+None
+love
+None
+love
+None
+love
+None
+Entered background. --------------------------------------------
