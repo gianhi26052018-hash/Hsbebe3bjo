@@ -1,0 +1,120 @@
+--// Kick A Lucky Block + Switch GUI
+
+local player = game.Players.LocalPlayer
+local char = player.Character or player.CharacterAdded:Wait()
+local hrp = char:WaitForChild("HumanoidRootPart")
+
+-- GUI
+local gui = Instance.new("ScreenGui", game.CoreGui)
+
+-- Nút OPEN
+local openBtn = Instance.new("TextButton", gui)
+openBtn.Size = UDim2.new(0,100,0,40)
+openBtn.Position = UDim2.new(0,10,0,200)
+openBtn.Text = "OPEN"
+openBtn.BackgroundColor3 = Color3.fromRGB(0,170,255)
+openBtn.TextColor3 = Color3.new(1,1,1)
+
+-- Frame chính
+local frame = Instance.new("Frame", gui)
+frame.Size = UDim2.new(0,260,0,180)
+frame.Position = UDim2.new(0.4,0,0.4,0)
+frame.BackgroundColor3 = Color3.fromRGB(20,20,20)
+frame.Active = true
+frame.Draggable = true
+
+-- Title
+local title = Instance.new("TextLabel", frame)
+title.Size = UDim2.new(1,0,0,30)
+title.Text = "Kick A Lucky Block"
+title.BackgroundColor3 = Color3.fromRGB(40,40,40)
+title.TextColor3 = Color3.new(1,1,1)
+
+-- Nút đóng
+local closeBtn = Instance.new("TextButton", frame)
+closeBtn.Size = UDim2.new(0,40,0,30)
+closeBtn.Position = UDim2.new(1,-45,0,0)
+closeBtn.Text = "X"
+closeBtn.BackgroundColor3 = Color3.fromRGB(170,0,0)
+closeBtn.TextColor3 = Color3.new(1,1,1)
+
+-- LABEL
+local label = Instance.new("TextLabel", frame)
+label.Size = UDim2.new(0.6,0,0,40)
+label.Position = UDim2.new(0,10,0,60)
+label.Text = "Auto Kick"
+label.BackgroundTransparency = 1
+label.TextColor3 = Color3.new(1,1,1)
+label.TextXAlignment = Enum.TextXAlignment.Left
+
+-- SWITCH (công tắc)
+local switch = Instance.new("Frame", frame)
+switch.Size = UDim2.new(0,60,0,30)
+switch.Position = UDim2.new(1,-70,0,65)
+switch.BackgroundColor3 = Color3.fromRGB(100,0,0)
+
+local knob = Instance.new("Frame", switch)
+knob.Size = UDim2.new(0,28,0,28)
+knob.Position = UDim2.new(0,1,0,1)
+knob.BackgroundColor3 = Color3.new(1,1,1)
+
+-- trạng thái
+local enabled = false
+
+-- toggle switch
+local function updateSwitch()
+    if enabled then
+        switch.BackgroundColor3 = Color3.fromRGB(0,170,0)
+        knob.Position = UDim2.new(1,-29,0,1)
+    else
+        switch.BackgroundColor3 = Color3.fromRGB(100,0,0)
+        knob.Position = UDim2.new(0,1,0,1)
+    end
+end
+
+switch.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        enabled = not enabled
+        updateSwitch()
+    end
+end)
+
+updateSwitch()
+
+-- đóng/mở
+closeBtn.MouseButton1Click:Connect(function()
+    frame.Visible = false
+end)
+
+openBtn.MouseButton1Click:Connect(function()
+    frame.Visible = true
+end)
+
+-- tìm block
+function getLucky()
+    for _,v in pairs(workspace:GetDescendants()) do
+        if v:IsA("BasePart") and v.Name:lower():find("lucky") then
+            return v
+        end
+    end
+end
+
+-- auto kick
+task.spawn(function()
+    while task.wait(0.1) do
+        if enabled then
+            local block = getLucky()
+            if block then
+                local look = (block.Position - hrp.Position).Unit
+                hrp.CFrame = CFrame.new(block.Position - look * 2.5 + Vector3.new(0,1.5,0), block.Position)
+
+                for i = 1,5 do
+                    block.Velocity = look * 300 + Vector3.new(0,50,0)
+                    firetouchinterest(hrp, block, 0)
+                    firetouchinterest(hrp, block, 1)
+                    task.wait(0.02)
+                end
+            end
+        end
+    end
+end)
