@@ -1,0 +1,105 @@
+local block = script.Parent
+
+-- RemoteEvent
+local event = game.ReplicatedStorage:FindFirstChild("LuckyEvent")
+if not event then
+    event = Instance.new("RemoteEvent")
+    event.Name = "LuckyEvent"
+    event.Parent = game.ReplicatedStorage
+end
+
+-- Khi chạm block
+block.Touched:Connect(function(hit)
+    local player = game.Players:GetPlayerFromCharacter(hit.Parent)
+    if player then
+        event:FireClient(player)
+    end
+end)
+
+-- Xử lý hiệu ứng
+event.OnServerEvent:Connect(function(player, choice)
+    local char = player.Character
+    if not char then return end
+
+    local humanoid = char:FindFirstChild("Humanoid")
+    if not humanoid then return end
+
+    if choice == "⚡ Speed" then
+        humanoid.WalkSpeed = 50
+
+    elseif choice == "🦘 Jump" then
+        humanoid.JumpPower = 100
+
+    elseif choice == "💥 Boom" then
+        local explosion = Instance.new("Explosion")
+        explosion.Position = char.PrimaryPart.Position
+        explosion.Parent = workspace
+    end
+end)
+
+-- Tạo GUI đẹp
+game.Players.PlayerAdded:Connect(function(player)
+    player.CharacterAdded:Connect(function()
+
+        local gui = Instance.new("ScreenGui")
+        gui.Name = "LuckyGui"
+        gui.ResetOnSpawn = false
+
+        local frame = Instance.new("Frame", gui)
+        frame.Size = UDim2.new(0, 260, 0, 220)
+        frame.Position = UDim2.new(0.5, -130, 0.5, -110)
+        frame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+        frame.Visible = false
+
+        -- Bo góc
+        local corner = Instance.new("UICorner", frame)
+        corner.CornerRadius = UDim.new(0, 15)
+
+        -- Gradient nền
+        local gradient = Instance.new("UIGradient", frame)
+        gradient.Color = ColorSequence.new{
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(0,170,255)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(170,0,255))
+        }
+
+        -- Title
+        local title = Instance.new("TextLabel", frame)
+        title.Size = UDim2.new(1,0,0,40)
+        title.Text = "🎁 LUCKY BLOCK"
+        title.TextScaled = true
+        title.BackgroundTransparency = 1
+        title.TextColor3 = Color3.new(1,1,1)
+
+        -- Tạo nút đẹp
+        local function createButton(text, posY)
+            local btn = Instance.new("TextButton", frame)
+            btn.Size = UDim2.new(0.8, 0, 0, 40)
+            btn.Position = UDim2.new(0.1, 0, 0, posY)
+            btn.Text = text
+            btn.TextScaled = true
+            btn.BackgroundColor3 = Color3.fromRGB(30,30,30)
+            btn.TextColor3 = Color3.new(1,1,1)
+
+            local c = Instance.new("UICorner", btn)
+            c.CornerRadius = UDim.new(0, 10)
+
+            -- Hover effect
+            btn.MouseEnter:Connect(function()
+                btn.BackgroundColor3 = Color3.fromRGB(80,80,80)
+            end)
+
+            btn.MouseLeave:Connect(function()
+                btn.BackgroundColor3 = Color3.fromRGB(30,30,30)
+            end)
+
+            btn.MouseButton1Click:Connect(function()
+                event:FireServer(text)
+                frame.Visible = false
+            end)
+        end
+
+        createButton("⚡ Speed", 60)
+        createButton("🦘 Jump", 110)
+        createButton("💥 Boom", 160)
+
+        gui.Parent =
