@@ -1,0 +1,80 @@
+--// Lucky Block Auto Farm + Kick
+
+local player = game.Players.LocalPlayer
+local char = player.Character or player.CharacterAdded:Wait()
+local hrp = char:WaitForChild("HumanoidRootPart")
+
+-- GUI
+local ScreenGui = Instance.new("ScreenGui", game.CoreGui)
+
+local Frame = Instance.new("Frame", ScreenGui)
+Frame.Size = UDim2.new(0, 230, 0, 150)
+Frame.Position = UDim2.new(0.4,0,0.4,0)
+Frame.BackgroundColor3 = Color3.fromRGB(25,25,25)
+Frame.Active = true
+Frame.Draggable = true
+
+local Title = Instance.new("TextLabel", Frame)
+Title.Size = UDim2.new(1,0,0,30)
+Title.Text = "Lucky Block Kick Farm"
+Title.BackgroundColor3 = Color3.fromRGB(40,40,40)
+Title.TextColor3 = Color3.new(1,1,1)
+
+local Toggle = Instance.new("TextButton", Frame)
+Toggle.Size = UDim2.new(1,-20,0,40)
+Toggle.Position = UDim2.new(0,10,0,60)
+Toggle.Text = "AUTO KICK: OFF"
+Toggle.BackgroundColor3 = Color3.fromRGB(170,0,0)
+Toggle.TextColor3 = Color3.new(1,1,1)
+
+local farming = false
+
+Toggle.MouseButton1Click:Connect(function()
+    farming = not farming
+    if farming then
+        Toggle.Text = "AUTO KICK: ON"
+        Toggle.BackgroundColor3 = Color3.fromRGB(0,170,0)
+    else
+        Toggle.Text = "AUTO KICK: OFF"
+        Toggle.BackgroundColor3 = Color3.fromRGB(170,0,0)
+    end
+end)
+
+-- tìm lucky block gần nhất
+function getLucky()
+    local closest = nil
+    local dist = math.huge
+
+    for _,v in pairs(workspace:GetDescendants()) do
+        if v:IsA("Part") and v.Name:lower():find("lucky") then
+            local d = (hrp.Position - v.Position).Magnitude
+            if d < dist then
+                dist = d
+                closest = v
+            end
+        end
+    end
+
+    return closest
+end
+
+-- auto kick loop
+task.spawn(function()
+    while task.wait(0.2) do
+        if farming then
+            local block = getLucky()
+            if block then
+                -- teleport tới block
+                hrp.CFrame = block.CFrame + Vector3.new(0,3,0)
+
+                -- KICK BAY
+                block.Velocity = Vector3.new(0,200,0)
+                block.RotVelocity = Vector3.new(20,20,20)
+
+                -- touch để ăn (nếu game có)
+                firetouchinterest(hrp, block, 0)
+                firetouchinterest(hrp, block, 1)
+            end
+        end
+    end
+end)
