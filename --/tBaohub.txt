@@ -1,0 +1,42 @@
+--// Lucky Block Auto Farm + Kick Perfect
+
+local player = game.Players.LocalPlayer
+local char = player.Character or player.CharacterAdded:Wait()
+local hrp = char:WaitForChild("HumanoidRootPart")
+
+-- GUI
+local ScreenGui = Instance.new("ScreenGui", game.CoreGui)
+
+local Frame = Instance.new("Frame", ScreenGui)
+Frame.Size = UDim2.new(0, 230, 0, 150)
+Frame.Position = UDim2.new(0.4,0,0.4,0)
+Frame.BackgroundColor3 = Color3.fromRGB(25,25,25)
+Frame.Active = true
+Frame.Draggable = true
+
+local Title = Instance.new("TextLabel", Frame)
+Title.Size = UDim2.new(1,0,0,30)
+Title.Text = "Perfect Kick Farm"
+Title.BackgroundColor3 = Color3.fromRGB(40,40,40)
+Title.TextColor3 = Color3.new(1,1,1)
+
+local Toggle = Instance.new("TextButton", Frame)
+Toggle.Size = UDim2.new(1,-20,0,40)
+Toggle.Position = UDim2.new(0,10,0,60)
+Toggle.Text = "AUTO PERFECT: OFF"
+Toggle.BackgroundColor3 = Color3.fromRGB(170,0,0)
+Toggle.TextColor3 = Color3.new(1,1,1)
+
+local farming = false
+
+Toggle.MouseButton1Click:Connect(function()
+    farming = not farming
+    Toggle.Text = farming and "AUTO PERFECT: ON" or "AUTO PERFECT: OFF"
+    Toggle.BackgroundColor3 = farming and Color3.fromRGB(0,170,0) or Color3.fromRGB(170,0,0)
+end)
+
+-- tìm block
+function getLucky()
+    local closest, dist = nil, math.huge
+    for _,v in pairs(workspace:GetDescendants()) do
+        if v
