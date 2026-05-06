@@ -1,0 +1,24 @@
+local player = game.Players.LocalPlayer
+local char = player.Character or player.CharacterAdded:Wait()
+local hrp = char:WaitForChild("HumanoidRootPart")
+
+local flying = false
+local speed = 60
+
+local UIS = game:GetService("UserInputService")
+local RS = game:GetService("RunService")
+
+UIS.InputBegan:Connect(function(input, gpe)
+	if gpe then return end
+	if input.KeyCode == Enum.KeyCode.F then
+		flying = not flying
+	end
+end)
+
+RS.RenderStepped:Connect(function()
+	if flying then
+		hrp.Velocity = Vector3.new(0, speed, 0)
+	else
+		hrp.Velocity = Vector3.new(0, 0, 0)
+	end
+end)
