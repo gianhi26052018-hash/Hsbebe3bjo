@@ -1,0 +1,38 @@
+local player = game.Players.LocalPlayer
+local mouse = player:GetMouse()
+
+local clicking = false
+
+-- GUI
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Parent = player:WaitForChild("PlayerGui")
+
+local Button = Instance.new("TextButton")
+Button.Parent = ScreenGui
+Button.Size = UDim2.new(0, 140, 0, 50)
+Button.Position = UDim2.new(0.5, -70, 0.8, 0)
+Button.Text = "Auto Click: OFF"
+Button.BackgroundTransparency = 0.2
+Button.TextScaled = true
+
+-- Toggle
+Button.MouseButton1Click:Connect(function()
+	clicking = not clicking
+	
+	if clicking then
+		Button.Text = "Auto Click: ON"
+	else
+		Button.Text = "Auto Click: OFF"
+	end
+end)
+
+-- Auto click loop
+task.spawn(function()
+	while true do
+		task.wait(0.1)
+		
+		if clicking then
+			mouse1click()
+		end
+	end
+end)
