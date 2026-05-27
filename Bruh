@@ -1,0 +1,37 @@
+local clicking = false
+
+-- GUI
+local gui = Instance.new("ScreenGui")
+gui.Parent = game.CoreGui
+
+local button = Instance.new("TextButton")
+button.Parent = gui
+button.Size = UDim2.new(0,150,0,50)
+button.Position = UDim2.new(0.5,-75,0.8,0)
+button.Text = "Auto Click OFF"
+button.TextScaled = true
+
+button.MouseButton1Click:Connect(function()
+	clicking = not clicking
+	
+	if clicking then
+		button.Text = "Auto Click ON"
+	else
+		button.Text = "Auto Click OFF"
+	end
+end)
+
+-- Auto click
+local vu = game:GetService("VirtualUser")
+
+task.spawn(function()
+	while true do
+		task.wait(0.1)
+		
+		if clicking then
+			vu:Button1Down(Vector2.new(0,0), workspace.CurrentCamera.CFrame)
+			task.wait()
+			vu:Button1Up(Vector2.new(0,0), workspace.CurrentCamera.CFrame)
+		end
+	end
+end)
