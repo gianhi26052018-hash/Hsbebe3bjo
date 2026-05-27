@@ -1,0 +1,48 @@
+local Clicking = false
+local CPS = 20
+
+-- Rayfield UI
+local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
+
+local Window = Rayfield:CreateWindow({
+	Name = "Delta Auto Clicker",
+	LoadingTitle = "Loading...",
+	LoadingSubtitle = "Rayfield UI",
+	ConfigurationSaving = {
+		Enabled = false
+	}
+})
+
+local Tab = Window:CreateTab("Main", 4483362458)
+
+Tab:CreateToggle({
+	Name = "Enable Auto Click",
+	CurrentValue = false,
+	Flag = "AutoClick",
+	Callback = function(Value)
+		Clicking = Value
+	end,
+})
+
+Tab:CreateSlider({
+	Name = "CPS",
+	Range = {1, 50},
+	Increment = 1,
+	Suffix = "CPS",
+	CurrentValue = 20,
+	Flag = "CPSValue",
+	Callback = function(Value)
+		CPS = Value
+	end,
+})
+
+-- Auto Click
+task.spawn(function()
+	while task.wait(1 / CPS) do
+		if Clicking then
+			pcall(function()
+				mouse1click()
+			end)
+		end
+	end
+end)
