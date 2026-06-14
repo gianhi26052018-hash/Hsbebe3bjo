@@ -128,7 +128,7 @@ Tabs.Main0:AddButton({
 Tabs.Main1:AddButton({
     Title="auto piano",
     Callback=function()
-        pcall(function()loadstring(game:HttpGet("https://hellohellohell0.com/talentless-raw/TALENTLESS.lua", true))()
+loadstring(game:HttpGet("https://hellohellohell0.com/talentless-raw/TALENTLESS.lua", true))()
     end
 })
 Tabs.Main1:AddButton({
