@@ -1,56 +1,120 @@
-loadstring(game:HttpGet(("https://raw.githubusercontent.com/daucobonhi/Ui-Redz-V2/refs/heads/main/UiREDzV2.lua")))()
+-- Khởi tạo thư viện Rayfield UI
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
-       local Window = MakeWindow({
-         Hub = {
-         Title = "TBoy Roblox",
-         Animation = "Youtube: TBoy Roblox"
-         },
-        Key = {
-        KeySystem = false,
-        Title = "Key System",
-        Description = "",
-        KeyLink = "",
-        Keys = {"1234"},
-        Notifi = {
-        Notifications = true,
-        CorrectKey = "Running the Script...",
-       Incorrectkey = "The key is incorrect",
-       CopyKeyLink = "Copied to Clipboard"
-      }
-    }
-  })
+-- Khởi tạo cấu hình toàn cục
+_G.AutoFarm = false
+_G.WalkSpeedValue = 16
+_G.JumpPowerValue = 50
 
-       MinimizeButton({
-       Image = "http://www.roblox.com/asset/?id=83190276951914",
-       Size = {60, 60},
-       Color = Color3.fromRGB(10, 10, 10),
-       Corner = true,
-       Stroke = false,
-       StrokeColor = Color3.fromRGB(255, 0, 0)
-      })
-      
------- Tab
-     local Tab1o = MakeTab({Name = "Script Farm"})
-     
-------- BUTTON
-    
-    AddButton(Tab1o, {
-     Name = "Redz Hub",
-    Callback = function()
-	  local Settings = {
-  JoinTeam = "Pirates"; -- Pirates/Marines
-  Translator = true; -- true/false
-}
+-- Link các script mục tiêu
+local TARGET_URL_BORDER = "https://github.com/sagor112233829/super-duper-octo-guacamole/raw/main/obfuscated_script-1779969440970.lua.txt"
+local TARGET_URL_SPEEDDRAW = "https://raw.githubusercontent.com/LunarielLovely/Scripts/refs/heads/main/SpeedDraw"
+local TARGET_URL_FORSAKEN = "https://raw.githubusercontent.com/LolnotaKid/project/refs/heads/main/AutoBLOCKKKWAHV1"
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/realredz/BloxFruits/refs/heads/main/Source.lua"))(Settings)
-  end
-  })
-  
-  AddButton(Tab1o, {
-     Name = "Redz Hub",
-    Callback = function()
-	  local Settings = {
-pcall(function()
-loadstring(game:HttpGet("https://hellohellohell0.com/talentless-raw/TALENTLESS.lua", true))()
-  end)
-  })
+-- Tạo cửa sổ giao diện chính
+local Window = Rayfield:CreateWindow({
+   Name = "Script tổng hợp",
+   LoadingTitle = "Đang đồng bộ hệ thống...",
+   LoadingSubtitle = "by CodeX Assistant",
+   ConfigurationSaving = { Enabled = true, FolderName = "CodeX_Configs", FileName = "PlayerConfig" },
+   Discord = { Enabled = false, Invite = "", RememberJoins = true },
+   KeySystem = false 
+})
+
+local isRunningScript = false
+
+-- ========================================================
+-- TAB 1: KÍCH HOẠT
+-- ========================================================
+local ScriptTab = Window:CreateTab("Kích Hoạt", 4483345998)
+ScriptTab:CreateSection("Danh Sách Script Hỗ Trợ")
+
+-- NÚT 1: BORDER ROLEPLAY
+ScriptTab:CreateButton({
+   Name = "Border roleplay auto farm",
+   Callback = function()
+       if isRunningScript then return end
+       isRunningScript = true
+       task.spawn(function()
+           pcall(function() loadstring(game:HttpGet(TARGET_URL_BORDER))() end)
+           isRunningScript = false
+       end)
+   end,
+})
+
+-- NÚT 2: SPEED DRAW
+ScriptTab:CreateButton({
+   Name = "speed draw",
+   Callback = function()
+       if isRunningScript then return end
+       isRunningScript = true
+       task.spawn(function()
+           pcall(function() loadstring(game:HttpGet(TARGET_URL_SPEEDDRAW))() end)
+           isRunningScript = false
+       end)
+   end,
+})
+
+-- NÚT 3: FORSAKEN
+ScriptTab:CreateButton({
+   Name = "forsaken",
+   Callback = function()
+       if isRunningScript then return end
+       isRunningScript = true
+       Rayfield:Notify({Title = "Hệ Thống", Content = "Đang chạy forsaken...", Duration = 3})
+       task.spawn(function()
+           local success, err = pcall(function() loadstring(game:HttpGet(TARGET_URL_FORSAKEN))() end)
+           if not success then warn("[CodeX Error]: " .. tostring(err)) end
+           isRunningScript = false
+       end)
+   end,
+})
+
+-- ========================================================
+-- TAB 2: NHÂN VẬT
+-- ========================================================
+local PlayerTab = Window:CreateTab("Nhân Vật", 4483345998)
+PlayerTab:CreateSection("Sửa Đổi Chỉ Số")
+local LocalPlayer = game:GetService("Players").LocalPlayer
+
+PlayerTab:CreateSlider({
+   Name = "Tốc độ (WalkSpeed)",
+   Increment = 1, Min = 16, Max = 200, CurrentValue = 16,
+   Callback = function(Value)
+       _G.WalkSpeedValue = Value
+       if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid") then
+           LocalPlayer.Character.Humanoid.WalkSpeed = Value
+       end
+   end,
+})
+
+PlayerTab:CreateSlider({
+   Name = "Lực nhảy (JumpPower)",
+   Increment = 1, Min = 50, Max = 300, CurrentValue = 50,
+   Callback = function(Value)
+       _G.JumpPowerValue = Value
+       if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid") then
+           LocalPlayer.Character.Humanoid.UseJumpPower = true
+           LocalPlayer.Character.Humanoid.JumpPower = Value
+       end
+   end,
+})
+
+task.spawn(function()
+    game:GetService("RunService").Heartbeat:Connect(function()
+        if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid") then
+            local h = LocalPlayer.Character.Humanoid
+            if h.WalkSpeed ~= _G.WalkSpeedValue then h.WalkSpeed = _G.WalkSpeedValue end
+            if h.JumpPower ~= _G.JumpPowerValue then h.UseJumpPower = true h.JumpPower = _G.JumpPowerValue end
+        end
+    end)
+end)
+
+-- ========================================================
+-- TAB 3: HỆ THỐNG
+-- ========================================================
+local MiscTab = Window:CreateTab("Hệ Thống", 4483345998)
+MiscTab:CreateButton({
+   Name = "Gỡ bỏ giao diện (Unload Hub)",
+   Callback = function() Rayfield:Destroy() end,
+})
