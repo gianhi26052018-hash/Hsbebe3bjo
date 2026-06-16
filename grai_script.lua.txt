@@ -21,9 +21,9 @@ local Window = Rayfield:CreateWindow({
       Title = "Key System",
       Subtitle = "Vui lòng nhập Key để sử dụng",
       Note = "trong quá trình thử nghiệm",
-      FileName = "BAOX_Key",
+l      FileName = "BAOX_Key",
       SaveKey = false,
-      Key = {"FREE_236d8aea472b2a61158a0cd6d94d846a"} 
+      Key = {"noicombeo"} 
    }
 })
 
