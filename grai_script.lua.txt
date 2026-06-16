@@ -1,120 +1,67 @@
 -- Khởi tạo thư viện Rayfield UI
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
--- Khởi tạo cấu hình toàn cục
-_G.AutoFarm = false
-_G.WalkSpeedValue = 16
-_G.JumpPowerValue = 50
+-- Danh sách URL Script
+local URLs = {
+    BORDER = "https://github.com/sagor112233829/super-duper-octo-guacamole/raw/main/obfuscated_script-1779969440970.lua.txt",
+    SPEEDDRAW = "https://raw.githubusercontent.com/LunarielLovely/Scripts/refs/heads/main/SpeedDraw",
+    FORSAKEN = "https://raw.githubusercontent.com/LolnotaKid/project/refs/heads/main/AutoBLOCKKKWAHV1",
+    AURA = "https://raw.githubusercontent.com/Wraithi/CoxFixed/refs/heads/main/coxrebirth.txt",
+    MUSIC = "https://rawscripts.net/raw/Universal-Script-YouTube-Music-Player-V8-236600"
+}
 
--- Link các script mục tiêu
-local TARGET_URL_BORDER = "https://github.com/sagor112233829/super-duper-octo-guacamole/raw/main/obfuscated_script-1779969440970.lua.txt"
-local TARGET_URL_SPEEDDRAW = "https://raw.githubusercontent.com/LunarielLovely/Scripts/refs/heads/main/SpeedDraw"
-local TARGET_URL_FORSAKEN = "https://raw.githubusercontent.com/LolnotaKid/project/refs/heads/main/AutoBLOCKKKWAHV1"
-
--- Tạo cửa sổ giao diện chính
+-- Cửa sổ chính với Key System
 local Window = Rayfield:CreateWindow({
-   Name = "Script tổng hợp",
-   LoadingTitle = "Đang đồng bộ hệ thống...",
-   LoadingSubtitle = "by CodeX Assistant",
-   ConfigurationSaving = { Enabled = true, FolderName = "CodeX_Configs", FileName = "PlayerConfig" },
-   Discord = { Enabled = false, Invite = "", RememberJoins = true },
-   KeySystem = false 
+   Name = "BAOX Master Hub [Secure]",
+   LoadingTitle = "Đang xác thực hệ thống...",
+   LoadingSubtitle = "by BAOX",
+   ConfigurationSaving = { Enabled = true, FolderName = "BAOX_Configs", FileName = "Config" },
+   KeySystem = true, 
+   KeySettings = {
+      Title = "Key System",
+      Subtitle = "Vui lòng nhập Key để sử dụng",
+      Note = "Liên hệ chủ script để lấy Key",
+      FileName = "BAOX_Key",
+      SaveKey = true,
+      Key = {"BAOX2026"} 
+   }
 })
 
-local isRunningScript = false
+local function RunExternalScript(url, name)
+    Rayfield:Notify({Title = "Đang tải...", Content = "Đang tải " .. name, Duration = 2})
+    local success, result = pcall(function() return loadstring(game:HttpGet(url))() end)
+    if not success then
+        Rayfield:Notify({Title = "Lỗi!", Content = "Không thể chạy " .. name, Duration = 5})
+        warn("Script Error ("..name.."): " .. tostring(result))
+    end
+end
 
--- ========================================================
--- TAB 1: KÍCH HOẠT
--- ========================================================
+-- ================= Tab 1: KÍCH HOẠT =================
 local ScriptTab = Window:CreateTab("Kích Hoạt", 4483345998)
-ScriptTab:CreateSection("Danh Sách Script Hỗ Trợ")
 
--- NÚT 1: BORDER ROLEPLAY
-ScriptTab:CreateButton({
-   Name = "Border roleplay auto farm",
-   Callback = function()
-       if isRunningScript then return end
-       isRunningScript = true
-       task.spawn(function()
-           pcall(function() loadstring(game:HttpGet(TARGET_URL_BORDER))() end)
-           isRunningScript = false
-       end)
-   end,
-})
+ScriptTab:CreateSection("Script Farm & Chính") -- Đã gom Speed Draw vào đây
+ScriptTab:CreateButton({Name = "Border RP Auto Farm", Callback = function() RunExternalScript(URLs.BORDER, "Border RP") end})
+ScriptTab:CreateButton({Name = "Speed Draw", Callback = function() RunExternalScript(URLs.SPEEDDRAW, "Speed Draw") end})
+ScriptTab:CreateButton({Name = "Forsaken Auto Farm", Callback = function() RunExternalScript(URLs.FORSAKEN, "Forsaken") end})
+ScriptTab:CreateButton({Name = "Aura. Auto Farm", Callback = function() RunExternalScript(URLs.AURA, "Aura") end})
 
--- NÚT 2: SPEED DRAW
-ScriptTab:CreateButton({
-   Name = "speed draw",
-   Callback = function()
-       if isRunningScript then return end
-       isRunningScript = true
-       task.spawn(function()
-           pcall(function() loadstring(game:HttpGet(TARGET_URL_SPEEDDRAW))() end)
-           isRunningScript = false
-       end)
-   end,
-})
+ScriptTab:CreateSection("Giải Trí")
+ScriptTab:CreateButton({Name = "YouTube Music Player", Callback = function() RunExternalScript(URLs.MUSIC, "YouTube Music Player") end})
 
--- NÚT 3: FORSAKEN
-ScriptTab:CreateButton({
-   Name = "forsaken",
-   Callback = function()
-       if isRunningScript then return end
-       isRunningScript = true
-       Rayfield:Notify({Title = "Hệ Thống", Content = "Đang chạy forsaken...", Duration = 3})
-       task.spawn(function()
-           local success, err = pcall(function() loadstring(game:HttpGet(TARGET_URL_FORSAKEN))() end)
-           if not success then warn("[CodeX Error]: " .. tostring(err)) end
-           isRunningScript = false
-       end)
-   end,
-})
-
--- ========================================================
--- TAB 2: NHÂN VẬT
--- ========================================================
+-- ================= Tab 2: NHÂN VẬT =================
 local PlayerTab = Window:CreateTab("Nhân Vật", 4483345998)
-PlayerTab:CreateSection("Sửa Đổi Chỉ Số")
 local LocalPlayer = game:GetService("Players").LocalPlayer
 
 PlayerTab:CreateSlider({
    Name = "Tốc độ (WalkSpeed)",
    Increment = 1, Min = 16, Max = 200, CurrentValue = 16,
    Callback = function(Value)
-       _G.WalkSpeedValue = Value
        if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid") then
            LocalPlayer.Character.Humanoid.WalkSpeed = Value
        end
    end,
 })
 
-PlayerTab:CreateSlider({
-   Name = "Lực nhảy (JumpPower)",
-   Increment = 1, Min = 50, Max = 300, CurrentValue = 50,
-   Callback = function(Value)
-       _G.JumpPowerValue = Value
-       if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid") then
-           LocalPlayer.Character.Humanoid.UseJumpPower = true
-           LocalPlayer.Character.Humanoid.JumpPower = Value
-       end
-   end,
-})
-
-task.spawn(function()
-    game:GetService("RunService").Heartbeat:Connect(function()
-        if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid") then
-            local h = LocalPlayer.Character.Humanoid
-            if h.WalkSpeed ~= _G.WalkSpeedValue then h.WalkSpeed = _G.WalkSpeedValue end
-            if h.JumpPower ~= _G.JumpPowerValue then h.UseJumpPower = true h.JumpPower = _G.JumpPowerValue end
-        end
-    end)
-end)
-
--- ========================================================
--- TAB 3: HỆ THỐNG
--- ========================================================
+-- ================= Tab 3: HỆ THỐNG =================
 local MiscTab = Window:CreateTab("Hệ Thống", 4483345998)
-MiscTab:CreateButton({
-   Name = "Gỡ bỏ giao diện (Unload Hub)",
-   Callback = function() Rayfield:Destroy() end,
-})
+MiscTab:CreateButton({Name = "Gỡ bỏ giao diện", Callback = function() Rayfield:Destroy() end})
